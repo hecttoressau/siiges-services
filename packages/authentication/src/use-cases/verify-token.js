@@ -3,14 +3,18 @@ const jwt = require('jsonwebtoken');
 const { Logger } = require('@siiges-services/shared');
 
 // Internal dependencies
-const { jwtSecret } = require('../../config');
+const { jwtParams } = require('../../config');
 
-const verifyToken = (token) => {
+function verifyToken(token) {
   try {
-    jwt.verify(token, jwtSecret);
+    jwt.verify(
+      token,
+      jwtParams.secret,
+      { algorithms: jwtParams.algorithm },
+    );
   } catch (error) {
     Logger.error(`Invalid token \nerror: ${error}`);
   }
-};
+}
 
 module.exports = verifyToken;

@@ -1,9 +1,9 @@
 // External dependencies
 const passport = require('passport');
-
 // Internal dependencies
-const { JwtStrategy } = require('./strategies');
+const strategies = require('./passport/strategies');
 
-passport.use(JwtStrategy);
+passport.use(strategies.Jwt);
+passport.use(strategies.Local);
 
 module.export = passport;

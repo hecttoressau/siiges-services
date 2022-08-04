@@ -2,16 +2,16 @@
 const jwt = require('jsonwebtoken');
 
 // Internal dependencies
-const { jwtSecret } = require('../../config');
+const { jwtParams } = require('../../config');
 
-const signToken = (informationObj, algorithm) => {
+function signToken(informationObj) {
   const token = jwt.sign(
     informationObj,
-    jwtSecret,
-    { algorithm },
+    jwtParams.secret,
+    { algorithm: jwtParams.algorithm },
   );
 
   return token;
-};
+}
 
 module.exports = signToken;
