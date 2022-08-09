@@ -1,5 +1,5 @@
 const { validateArgumentsObject } = require('../../../auxiliary-constants');
-const validate = require('../../../../src/utils/validation/validate');
+const validateWithFunction = require('../../../../src/utils/validation/validate-with-function');
 
 describe('GIVEN a call to validate function', () => {
   describe('WHEN the argument datatype is the expected', () => {
@@ -7,7 +7,7 @@ describe('GIVEN a call to validate function', () => {
       validateArgumentsObject.validatorFn
         .mockReturnValue(true);
 
-      expect(validate(validateArgumentsObject)).toBe(true);
+      expect(validateWithFunction(validateArgumentsObject)).toBe(true);
     });
   });
 
@@ -16,7 +16,7 @@ describe('GIVEN a call to validate function', () => {
       validateArgumentsObject.validatorFn
         .mockReturnValue(false);
 
-      expect(() => validate(validateArgumentsObject))
+      expect(() => validateWithFunction(validateArgumentsObject))
         .toThrow(TypeError);
     });
 
@@ -24,7 +24,7 @@ describe('GIVEN a call to validate function', () => {
       validateArgumentsObject.validatorFn
         .mockReturnValue(false);
 
-      expect(() => validate(validateArgumentsObject))
+      expect(() => validateWithFunction(validateArgumentsObject))
         .toThrow(`${validateArgumentsObject.nameVar} is not a ${validateArgumentsObject.expectedDatatype}`);
     });
   });
