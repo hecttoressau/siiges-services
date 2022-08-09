@@ -7,6 +7,8 @@ const fakeData = {
   UNDEFINED: undefined,
   bool: faker.datatype.boolean(),
   techWord: faker.hacker.ingverb(),
+  datatype: faker.helpers.objectKey(faker.datatype),
+  numberMax20: faker.datatype.number({ max: 20 }),
 };
 
 const nodeEnv = {
@@ -16,7 +18,15 @@ const nodeEnv = {
   UNDEFINED: undefined,
 };
 
+const validateArgumentsObject = {
+  nameVar: fakeData.techWord,
+  valueVar: fakeData.string,
+  validatorFn: jest.fn(),
+  expectedDatatype: fakeData.datatype,
+};
+
 module.exports = {
   fakeData,
   nodeEnv,
+  validateArgumentsObject,
 };
