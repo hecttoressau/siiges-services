@@ -1,21 +1,23 @@
 // External dependencies
-const { checkers } = require('@siiges-services/shared');
+const { checkers, validations } = require('@siiges-services/shared');
 // Internal dependencies
 const { frontAuth } = require('../../config');
 const { hmacFront } = require('../adapters/crypto/front-hmac');
 const hashString = require('../utilities/hash-string');
 
 function isFrontPasswordRight(password) {
-  if (checkers.isString(password)) {
-    const hashedPassword = hashString(password, hmacFront);
-    if (frontAuth.password === hashedPassword) {
-      return true;
-    }
+  validations.validate({
+    nameVar: 'password',
+    valueVar: password,
+    validatorFn: checkers.isString,
+    expectedDatatype: String,
+  });
 
-    return false;
+  const hashedPassword = hashString(password, hmacFront);
+  if (frontAuth.password === hashedPassword) {
+    return true;
   }
-
-  throw TypeError('"password" is not a string');
+  return false;
 }
 
 module.exports = isFrontPasswordRight;
